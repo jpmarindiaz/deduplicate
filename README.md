@@ -10,8 +10,6 @@ So far I have the following functions:
 - __get_approx_dups__: Get all duplicates for manual inspection.
 - __new_or_dup__: Get if a set of new records are new or duplicates.
 
-By default 
-
 All these functions work with using the naïve approach of creating a unique id out of the multiple columns of the dataset, e.g. FIRSTNAME_LASTNAME_CITY
 
 Planned features include:

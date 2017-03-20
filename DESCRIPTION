@@ -1,0 +1,15 @@
+Package: deduplicate
+Type: Package
+Title: Deduplicate Records in a Data Frame
+Version: 0.1.0
+Date: 2017-03-20
+Author: Juan Pablo Marin Diaz
+Maintainer: Juan Pablo Marin Diaz <jpmarindiaz@gmail.com>
+Description: Identify approximately duplicate records and merge them
+Depends:
+    R (>= 3.1.2),
+    tidyverse,
+    fuzzyjoin
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true

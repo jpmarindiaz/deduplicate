@@ -1,0 +1,23 @@
+active_since,age,first_name,last_name,document_type,document_number,city,country
+2013-01-04,45,Juan,Díaz,C.C.,320443252,bogotá D.C,Colombia
+2013-04-01,44,Juan,Díaz,CC,320443252,Bogotá,Colombia
+2013-03-04,14,Ana,Smith,SS,432423202,Wagsinton D.C,United States
+1970-01-11,37,Anna,Smith,Driving Licence,12345678,Washington D.C,USA
+1970-01-01,45,Anna,Smith,Passport,320443252, D.C,U.S.A
+2012-01-13,23,David,Díaz,C.C.,548543543,NYC,USA
+2012-03-13,45,Janeth,Garcia,C.C.,548543543,New York City,USA
+2012-05-03,34,Julianne,Doe,Passport,548543543,Medellín,Colombia
+2012-06-03,45,Xavier,Doe,Passport,548543543,Medellin,Colombia
+2012-01-23,22,Alejandro,Doe,Passport,4665646423,Cali,Colombia
+2012-07-23,32,Julianne,Díaz,Passport,1132252,Cali,Colômbia
+2012-01-21,67,Guillermo,Díaz,Passport,320443252,Zürich,Switzerland
+2013-08-21,,Juan Guillermo,Diaz,CC,44343204,Zürich,Der Schweiz
+,,Oscar,Salamanca,CC,487643204,Zürich,Siwtzerland
+2013-11-27,,Camila,Diaz,SS,87345204,Zurigo,Svizzera
+2013-01-07,,Camille,Born,SS,1238594086,Rio de Janeiro,Brasil
+2013-12-07,34,Diego,Auges,SS,435443252,São Paulo,Brazil
+2013-10-07,34,Carlos,Díaz,SS,376586252,Sao Paulo,Brazil
+2013-09-04,23,Anthony,Lee,SS,3963752,México D.F.,Mexico
+2013-09-04,67,Charles,Sacks,C.C.,94718234,Ciudad de méxico,México
+1970-01-01,54,Jack,Lee,C.C.,58943254,San Francisco,Colombia
+1970-01-01,45,Jane,Paris,C.C.,123548998,San Franciso,USA
