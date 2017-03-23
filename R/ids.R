@@ -7,7 +7,7 @@
 #' @return The sum of \code{x} and \code{y}.
 #' @examples
 #' add(1, 1)
-exclusive_ids <- function(d, ids, .row_id = NULL, keepCols = FALSE){
+exclusive_ids <- function(d, ids, .row_id = NULL, keepCols = TRUE){
   d <- add_row_id(d, id = .row_id)
   g <- d %>%
     slice_rows(ids) %>%
