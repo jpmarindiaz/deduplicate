@@ -19,8 +19,14 @@ Planned features include:
 - Automatic merge of records
 - Supervised merge with a Shiny App or RStudio add on
 
+# Todo's
 
+Fix "custom_id" name conflict 
+dids <- create_idcols(d, id_cols)
+add_approx_unique_id(dids, col = "custom_id")
 
+exclusive_ids for more than 2 ids.
+Use mutate_all() with do()
 
 
 

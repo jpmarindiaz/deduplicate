@@ -1,3 +1,35 @@
+#' exclusive_ids
+#' Find if two ids are exclusive
+#' @name exclusive_ids
+#' @param x A number.
+#' @param y A number.
+#' @export
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+exclusive_ids <- function(d, ids, .row_id = NULL, keepCols = FALSE){
+  d <- add_row_id(d, id = .row_id)
+  g <- d %>%
+    slice_rows(ids) %>%
+    by_slice(~ .$.row_id, .to = ".row_id")
+  g <- g %>%
+    group_by_(.dots = ids[1]) %>%
+    mutate(.id_1 = ifelse(n()>1,FALSE,TRUE)) %>%
+    group_by_(.dots = ids[2]) %>%
+    mutate(.id_2 = ifelse(n()>1,FALSE,TRUE)) %>%
+    mutate(.exc_id = .id_1 & .id_2)
+  g <- g %>%
+    rename_(.dots = setNames(c(".id_1",".id_2"),
+                             paste0(".exc_",ids)))
+  g <- unnest(g) %>% arrange(.row_id) %>%
+    move_first(c(".row_id",".exc_id"))
+  if(keepCols)
+    g <- left_join(d,g)
+  if(!is.null(.row_id))
+    g$.row_id <- NULL
+  g
+}
+
 
 #' add_unique_id
 #' Find possible duplicates
