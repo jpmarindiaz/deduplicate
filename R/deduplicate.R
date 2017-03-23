@@ -12,9 +12,9 @@
 new_or_dup <- function(dnew, dold, id_cols,id=NULL, max_dist = 0.1){
   if(!identical(sort(names(dnew)),sort(names(dold))))
     stop("Same structure needed for new and old data frames")
-  dnew <- create_row_id(dnew, id = id)
+  dnew <- add_row_id(dnew, id = id)
   dnew <- create_idcols(dnew, id_cols)
-  dold <- create_row_id(dold, id = id)
+  dold <- add_row_id(dold, id = id)
   dold <- create_idcols(dold, id_cols)
   if(max_dist != 0){
     dups <- stringdist_left_join(dnew,dold, by = "custom_id",
@@ -44,8 +44,7 @@ new_or_dup <- function(dnew, dold, id_cols,id=NULL, max_dist = 0.1){
 #' add(1, 1)
 get_approx_dups <- function(d, id_cols,id=NULL, max_dist = 0.1){
   dups <- get_approx_dup_ids(d, id_cols = id_cols, id = id,
-                                 max_dist = max_dist, as.list = FALSE)
-  dups <- unnest(dups)
+                                 max_dist = max_dist, asList = FALSE)
   d$.row_id <- 1:nrow(d)
   left_join(dups,d, by = c(".row_id"=".row_id"))
 }
@@ -60,9 +59,9 @@ get_approx_dups <- function(d, id_cols,id=NULL, max_dist = 0.1){
 #' @return The sum of \code{x} and \code{y}.
 #' @examples
 #' add(1, 1)
-get_approx_dup_ids <- function(d, id_cols,id=NULL, max_dist = 0.1, as.list = TRUE){
-  d <- create_row_id(d, id = id)
-  d1 <- create_idcols(d, id_cols)
+get_approx_dup_ids <- function(d, id_cols, id = NULL,
+                               max_dist = 0.1, asList = FALSE){
+  d1 <- create_idcols(d, id_cols, id)
   dic <- distinct(d1,custom_id,.keep_all = FALSE)
   if(max_dist != 0){
     dups <- stringdist_left_join(dic,d1,method = "jw",max_dist = max_dist) %>%
@@ -76,13 +75,13 @@ get_approx_dup_ids <- function(d, id_cols,id=NULL, max_dist = 0.1, as.list = TRU
     select(custom_id,.row_id) %>%
     slice_rows("custom_id") %>%
     by_slice(~.$.row_id, .collate="list",.to = ".row_id")
-  if(as.list){
+  if(asList){
     dupsList <- dupsDf %>% .$.row_id
     names(dupsList) <- dupsDf$custom_id
     dupsList
     return(dupsList)
   }
-  dupsDf
+  unnest(dupsDf)
 }
 
 

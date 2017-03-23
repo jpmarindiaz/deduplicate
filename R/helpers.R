@@ -1,31 +1,21 @@
 
-
-create_idcols <- function(d, id_cols, noAccents = TRUE, lowerCase = TRUE){
-    if(!all(id_cols %in% names(d)))
-      stop("All id_cols must be in d")
-    d1 <- d[id_cols]
-    d1[is.na(d1)] <- ""
-    if(noAccents)
-      d1 <- map_df(d1,remove_accents)
-    if(lowerCase)
-      d1 <- map_df(d1,tolower)
-    d1 <- bind_cols(d[".row_id"],d1)
-    d1 <- unite_(d1,"custom_id",id_cols)
-    #customId <- d1[id_cols] %>% by_row(paste,collapse = "_",.collate = "cols") %>% .$.out
-    #d2$customId <- customId
-    d1
+move_first <- function(d,name){
+  d[c(name, names(d)[names(d) != name])]
 }
 
-create_row_id <- function(d,id= NULL){
+
+add_row_id <- function(d,id = NULL){
+  if(".row_id" %in% names(d))
+    return(d)
   if(is.null(id)){
     #dname <- deparse(substitute(d))
     id <- data_frame(.row_id = 1:nrow(d))
     d <- bind_cols(id,d)
   }else{
-    if(!length(unique(d %>% .$id)) == nrow(d))
+    if(!nrow(d[id] %>% distinct()) == nrow(d))
       stop("id provided not unique")
     else
-      d$.row_id <- d$id
+      d <- d %>% mutate_(.row_id = id) %>% select(.row_id, everything())
   }
   d
 }
