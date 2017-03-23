@@ -36,9 +36,9 @@ create_idcols <- function(d, id_cols, id = NULL, keepCols = FALSE, noAccents = T
 add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
   uidName <- uidName %||% ".unique_id"
   dic <- d[col] %>% distinct()
-  dic[uid] <- 1:nrow(dic)
+  dic[uidName] <- 1:nrow(dic)
   if(!is.null(uidPrefix))
-    dic[uid] <- paste0(uidPrefix,dic[uid])
+    dic[uidName] <- paste0(uidPrefix,dic[uidName])
   x <- right_join(d,dic)
   move_first(x,uidName)
 }
