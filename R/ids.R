@@ -14,7 +14,7 @@ add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
   dic[uidName] <- 1:nrow(dic)
   if(!is.null(uidPrefix))
     dic[uidName] <- paste0(uidPrefix,dic[uidName])
-  x <- right_join(d,dic)
+  x <- right_join(d,dic, by = col)
   move_first(x,uidName)
 }
 

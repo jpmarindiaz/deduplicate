@@ -45,10 +45,11 @@ add_approx_unique_id <- function(d, col,id=NULL, max_dist = 0.1, uidName = NULL,
   d1 <- create_idcols(d, col, id = id, keepCols = TRUE)
   dic <- distinct(d1,custom_id,.keep_all = FALSE)
   if(max_dist != 0){
-    dups <- stringdist_left_join(dic,d1,method = "jw",max_dist = max_dist) %>%
+    dups <- stringdist_left_join(dic,d1, by = "custom_id",
+                                 method = "jw",max_dist = max_dist) %>%
       select(custom_id = custom_id.x, .row_id)
   }else{
-    dups <- left_join(dic,d1)
+    dups <- left_join(dic,d1, by = "custom_id")
   }
   x <- dups %>%
     arrange(.row_id,custom_id) %>%
@@ -56,7 +57,7 @@ add_approx_unique_id <- function(d, col,id=NULL, max_dist = 0.1, uidName = NULL,
     summarise(members = paste0(custom_id,collapse = "-")) %>%
     add_unique_id(col = "members",uidName = NULL) %>%
     select(.row_id,.unique_id)
-  d2 <- left_join(d1,x)
+  d2 <- left_join(d1,x, by = ".row_id")
   if(!is.null(uidPrefix))
     d2 <- d2 %>% mutate(.unique_id=paste0(uidPrefix,.unique_id))
 
@@ -99,10 +100,11 @@ get_approx_dup_ids <- function(d, id_cols, id = NULL,
   d1 <- create_idcols(d, id_cols, id)
   dic <- distinct(d1,custom_id,.keep_all = FALSE)
   if(max_dist != 0){
-    dups <- stringdist_left_join(dic,d1,method = "jw",max_dist = max_dist) %>%
+    dups <- stringdist_left_join(dic,d1, by = "custom_id",
+                                 method = "jw",max_dist = max_dist) %>%
       select(custom_id = custom_id.x, .row_id)
   }else{
-    dups <- left_join(dic,d1)
+    dups <- left_join(dic,d1,by = "custom_id",)
   }
   dupsDf <- dups %>%
     group_by(custom_id) %>%

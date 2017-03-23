@@ -25,7 +25,7 @@ dids <- create_idcols(d, id_cols, id = "uid")
 dids <- create_idcols(d, id_cols, id = "uid", keepCols = TRUE)
 
 duids <- add_unique_id(d, "first_name")
-duids <- add_unique_id(d, "age")
+duids <- add_unique_id(d, "age", uidName = "ageId")
 
 duids <- add_unique_id(dids, "custom_id")
 duids <- add_unique_id(dids, "first_name")
