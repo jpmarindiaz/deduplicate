@@ -17,10 +17,12 @@ add_row_id(d, id = "uid")
 add_row_id(d, id = "first_name")
 
 dids <- create_idcols(d, id_cols)
+dids <- create_idcols(d, id_cols, idName = "idPerson")
+
 dids <- create_idcols(d, id_cols, id = "uid")
 dids <- create_idcols(d, id_cols, id = "first_name")
 
-dids <- create_idcols(d, id_cols, keepCols = TRUE)
+dids <- create_idcols(d, id_cols, keepCols = TRUE, idName = "idPerson")
 dids <- create_idcols(d, id_cols, id = "uid")
 dids <- create_idcols(d, id_cols, id = "uid", keepCols = TRUE)
 

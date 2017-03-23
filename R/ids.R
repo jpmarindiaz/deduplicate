@@ -28,7 +28,8 @@ add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
 #' @return The sum of \code{x} and \code{y}.
 #' @examples
 #' add(1, 1)
-create_idcols <- function(d, id_cols, id = NULL, keepCols = FALSE, noAccents = TRUE, lowerCase = TRUE){
+create_idcols <- function(d, id_cols, id = NULL, idName = NULL,
+                          keepCols = FALSE, noAccents = TRUE, lowerCase = TRUE){
   if(!all(id_cols %in% names(d)))
     stop("All id_cols must be in d")
   d1 <- d[id_cols]
@@ -42,6 +43,8 @@ create_idcols <- function(d, id_cols, id = NULL, keepCols = FALSE, noAccents = T
   d2 <- bind_cols(d[".row_id"],d1)
   if(keepCols)
     d2 <- bind_cols(d2,d %>% select(-.row_id))
+  if(!is.null(idName))
+    d2 <- d2 %>% rename_(.dots = setNames("custom_id", idName))
   d2
 }
 

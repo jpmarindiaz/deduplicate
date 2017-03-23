@@ -5,8 +5,8 @@
 \title{create_idcols
 Find possible duplicates}
 \usage{
-create_idcols(d, id_cols, id = NULL, keepCols = FALSE, noAccents = TRUE,
-  lowerCase = TRUE)
+create_idcols(d, id_cols, id = NULL, idName = NULL, keepCols = FALSE,
+  noAccents = TRUE, lowerCase = TRUE)
 }
 \arguments{
 \item{x}{A number.}
