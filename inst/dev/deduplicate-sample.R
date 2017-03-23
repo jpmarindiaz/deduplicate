@@ -76,7 +76,7 @@ isnew <- new_or_dup(dnew,dold,id_cols = id_cols, max_dist = 0.2)
 
 ## Exclusive ids
 
-x <- data_frame(
+d <- data_frame(
   r = 1:10,
   g1 = c('x','x','y','y','y','z','w','w','w','u'),
   g2 = c('a','a','b','b','c','c','d','d','d','e'),
@@ -85,7 +85,7 @@ x <- data_frame(
 ids <- c('g1','g2')
 
 exclusive_ids(x, ids = c("g1","g2"), .row_id = "r")
-exclusive_ids(x, ids = c("g1","g2"), keepCols = TRUE)
+exclusive_ids(x, ids = c("g1","g2"), keepCols = FALSE)
 exclusive_ids(x, ids = c("g1","g2"), .row_id = "r", keepCols = FALSE)
 exclusive_ids(x, ids = c("g1","g2"), .row_id = "r", keepCols = TRUE)
 

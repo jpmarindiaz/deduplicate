@@ -21,10 +21,11 @@ exclusive_ids <- function(d, ids, .row_id = NULL, keepCols = TRUE){
   g <- g %>%
     rename_(.dots = setNames(c(".id_1",".id_2"),
                              paste0(".exc_",ids)))
-  g <- unnest(g) %>% arrange(.row_id) %>%
-    move_first(c(".row_id",".exc_id"))
+  g <- unnest(g) %>% arrange(.row_id)
   if(keepCols)
     g <- left_join(d,g)
+  g <- g %>%
+    move_first(c(".row_id",names(g)[grep("^.exc_",names(g))]))
   if(!is.null(.row_id))
     g$.row_id <- NULL
   g
