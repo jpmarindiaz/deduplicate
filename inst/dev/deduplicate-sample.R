@@ -31,6 +31,13 @@ duids <- add_unique_id(dids, "custom_id")
 duids <- add_unique_id(dids, "first_name")
 duids <- add_unique_id(dids, "age")
 
+dapproxuid0 <- add_approx_unique_id(d,"first_name",max_dist = 0)
+dapproxuid10 <- add_approx_unique_id(d,"first_name",max_dist = 0.1)
+dapproxuid20 <- add_approx_unique_id(d,"first_name",max_dist = 0.2)
+dapproxuid30 <- add_approx_unique_id(d,"first_name",max_dist = 0.3)
+dapproxuid50 <- add_approx_unique_id(d,"first_name",max_dist = 0.5)
+
+
 dups <- get_approx_dup_ids(customers,id_cols = id_cols, max_dist = 0)
 dups <- get_approx_dup_ids(customers,id_cols = id_cols,
                            id = "uid", max_dist = 0)

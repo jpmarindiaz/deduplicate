@@ -31,6 +31,41 @@ new_or_dup <- function(dnew, dold, id_cols,id=NULL, max_dist = 0.1){
   newdup
 }
 
+#' add_approx_unique_id
+#' Add an approximate unique id to rows for a given column
+#' @name add_approx_unique_id
+#' @param x A number.
+#' @param y A number.
+#' @export
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+add_approx_unique_id <- function(d, col,id=NULL, max_dist = 0.1, uidName = NULL, uidPrefix = NULL){
+  uidName <- uidName %||% ".unique_id"
+  d1 <- create_idcols(d, col, id = id, keepCols = TRUE)
+  dic <- distinct(d1,custom_id,.keep_all = FALSE)
+  if(max_dist != 0){
+    dups <- stringdist_left_join(dic,d1,method = "jw",max_dist = max_dist) %>%
+      select(custom_id = custom_id.x, .row_id)
+  }else{
+    dups <- left_join(dic,d1)
+  }
+  x <- dups %>%
+    arrange(.row_id,custom_id) %>%
+    group_by(.row_id) %>%
+    summarise(members = paste0(custom_id,collapse = "-")) %>%
+    add_unique_id(col = "members",uidName = NULL) %>%
+    select(.row_id,.unique_id)
+  d2 <- left_join(d1,x)
+  if(!is.null(uidPrefix))
+    d2 <- d2 %>% mutate(.unique_id=paste0(uidPrefix,.unique_id))
+
+  d2 <- d2 %>%
+    rename_(.dots = setNames(".unique_id", uidName)) %>%
+    move_first(uidName)
+  d2$.row_id <- NULL
+  d2
+}
 
 
 #' get_approx_dups

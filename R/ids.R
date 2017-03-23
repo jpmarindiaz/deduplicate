@@ -1,3 +1,24 @@
+
+#' add_unique_id
+#' Find possible duplicates
+#' @name add_unique_id
+#' @param x A number.
+#' @param y A number.
+#' @export
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
+  uidName <- uidName %||% ".unique_id"
+  dic <- d[col] %>% distinct()
+  dic[uidName] <- 1:nrow(dic)
+  if(!is.null(uidPrefix))
+    dic[uidName] <- paste0(uidPrefix,dic[uidName])
+  x <- right_join(d,dic)
+  move_first(x,uidName)
+}
+
+
 #' create_idcols
 #' Find possible duplicates
 #' @name create_idcols
@@ -24,21 +45,4 @@ create_idcols <- function(d, id_cols, id = NULL, keepCols = FALSE, noAccents = T
   d2
 }
 
-#' add_unique_id
-#' Find possible duplicates
-#' @name add_unique_id
-#' @param x A number.
-#' @param y A number.
-#' @export
-#' @return The sum of \code{x} and \code{y}.
-#' @examples
-#' add(1, 1)
-add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
-  uidName <- uidName %||% ".unique_id"
-  dic <- d[col] %>% distinct()
-  dic[uidName] <- 1:nrow(dic)
-  if(!is.null(uidPrefix))
-    dic[uidName] <- paste0(uidPrefix,dic[uidName])
-  x <- right_join(d,dic)
-  move_first(x,uidName)
-}
+
