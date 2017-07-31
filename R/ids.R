@@ -11,7 +11,7 @@ exclusive_ids <- function(d, ids, .row_id = NULL, keepCols = TRUE){
   d <- add_row_id(d, id = .row_id)
   g <- d %>%
     slice_rows(ids) %>%
-    by_slice(~ .$.row_id, .to = ".row_id")
+    by_slice(function(x) x$.row_id, .to = ".row_id")
   g <- g %>%
     group_by_(.dots = ids[1]) %>%
     mutate(.id_1 = ifelse(n()>1,FALSE,TRUE)) %>%

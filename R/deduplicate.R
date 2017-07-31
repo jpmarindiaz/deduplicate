@@ -104,14 +104,14 @@ get_approx_dup_ids <- function(d, id_cols, id = NULL,
                                  method = "jw",max_dist = max_dist) %>%
       select(custom_id = custom_id.x, .row_id)
   }else{
-    dups <- left_join(dic,d1,by = "custom_id",)
+    dups <- left_join(dic,d1,by = "custom_id")
   }
   dupsDf <- dups %>%
     group_by(custom_id) %>%
     filter(n()>1) %>%
     select(custom_id,.row_id) %>%
     slice_rows("custom_id") %>%
-    by_slice(~.$.row_id, .collate="list",.to = ".row_id")
+    by_slice(function(x) x$.row_id, .collate="list",.to = ".row_id")
   if(asList){
     dupsList <- dupsDf %>% .$.row_id
     names(dupsList) <- dupsDf$custom_id

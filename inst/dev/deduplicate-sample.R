@@ -3,6 +3,9 @@ devtools::install()
 
 
 library(deduplicate)
+library(tidyverse)
+library(fuzzyjoin)
+library(purrrlyr)
 
 customers <- read_csv(system.file("data/customers.csv",package = "deduplicate"))
 customers2 <- read_csv(system.file("data/customers2.csv",package = "deduplicate"))
@@ -14,7 +17,7 @@ d <- customers
 # helper funs
 
 add_row_id(d)
-d$uid <- paste0("uid",1:nrow(x))
+d$uid <- paste0("uid",1:nrow(d))
 add_row_id(d, id = "uid")
 add_row_id(d, id = "first_name")
 
