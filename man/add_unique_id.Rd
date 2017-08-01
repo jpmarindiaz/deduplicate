@@ -22,4 +22,3 @@ Find possible duplicates
 \examples{
 add(1, 1)
 }
-

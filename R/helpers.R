@@ -10,7 +10,7 @@ nested_to_list <- function(d){
   l
 }
 
-add_row_id <- function(d,id = NULL){
+add_row_id <- function(d,id = NULL, idName = ".row_id"){
   if(".row_id" %in% names(d))
     return(d)
   if(is.null(id)){
@@ -23,6 +23,7 @@ add_row_id <- function(d,id = NULL){
     else
       d <- d %>% mutate_(.row_id = id) %>% select(.row_id, everything())
   }
+  names(d)[1] <- idName
   d
 }
 

@@ -61,23 +61,24 @@ add_unique_id <- function(d, col, uidName = NULL, uidPrefix = NULL){
 #' @return The sum of \code{x} and \code{y}.
 #' @examples
 #' add(1, 1)
-create_idcols <- function(d, id_cols, id = NULL, idName = NULL,
+create_idcols <- function(d, id_cols = NULL, idName = NULL,
                           keepCols = FALSE, noAccents = TRUE, lowerCase = TRUE){
   if(!all(id_cols %in% names(d)))
     stop("All id_cols must be in d")
+
   d1 <- d[id_cols]
   d1[is.na(d1)] <- ""
   if(noAccents)
     d1 <- map_df(d1,remove_accents)
   if(lowerCase)
     d1 <- map_df(d1,tolower)
-  d1 <- unite_(d1,"custom_id",id_cols)
-  d <- add_row_id(d, id = id)
+  d1 <- unite_(d1,".custom_id",id_cols)
+  d <- add_row_id(d)
   d2 <- bind_cols(d[".row_id"],d1)
   if(keepCols)
     d2 <- bind_cols(d2,d %>% select(-.row_id))
   if(!is.null(idName))
-    d2 <- d2 %>% rename_(.dots = setNames("custom_id", idName))
+    d2 <- d2 %>% rename_(.dots = setNames(".custom_id", idName))
   d2
 }
 

@@ -5,7 +5,7 @@
 \title{exclusive_ids
 Find if two ids are exclusive}
 \usage{
-exclusive_ids(d, ids, .row_id = NULL, keepCols = FALSE)
+exclusive_ids(d, ids, .row_id = NULL, keepCols = TRUE)
 }
 \arguments{
 \item{x}{A number.}
@@ -22,4 +22,3 @@ Find if two ids are exclusive
 \examples{
 add(1, 1)
 }
-

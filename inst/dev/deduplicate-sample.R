@@ -14,32 +14,19 @@ names(customers)
 id_cols <- c("first_name","document_number")
 d <- customers
 
-# helper funs
+####
 
-add_row_id(d)
-d$uid <- paste0("uid",1:nrow(d))
-add_row_id(d, id = "uid")
-add_row_id(d, id = "first_name")
 
-dids <- create_idcols(d, id_cols)
 
-add_approx_unique_id(dids, col = "custom_id")
 
-dids <- create_idcols(d, id_cols, idName = "idPerson")
 
-dids <- create_idcols(d, id_cols, id = "uid")
-dids <- create_idcols(d, id_cols, id = "first_name")
+v <- c("aaaa","bafdsa","caddsaa")
+str_dist(v)
 
-dids <- create_idcols(d, id_cols, keepCols = TRUE, idName = "idPerson")
-dids <- create_idcols(d, id_cols, id = "uid")
-dids <- create_idcols(d, id_cols, id = "uid", keepCols = TRUE)
 
-duids <- add_unique_id(d, "first_name")
-duids <- add_unique_id(d, "age", uidName = "ageId")
 
-duids <- add_unique_id(dids, "custom_id")
-duids <- add_unique_id(dids, "first_name")
-duids <- add_unique_id(dids, "age")
+
+
 
 dapproxuid0 <- add_approx_unique_id(d,"first_name",max_dist = 0)
 dapproxuid10 <- add_approx_unique_id(d,"first_name",max_dist = 0.1)
